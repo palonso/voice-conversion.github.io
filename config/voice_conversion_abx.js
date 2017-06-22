@@ -5,8 +5,8 @@ var TestConfig = {
   "ShowFileIDs": false,
   "ShowResults": false,
   "EnableABLoop": true,
-  "EnableOnlineSubmission": false,
-  "BeaqleServiceURL": "",
+  "EnableOnlineSubmission": true,
+  "BeaqleServiceURL": "https://formspree.io/pablo.alonso@upf.edu",
   "SupervisorContact": "", 
   "Testsets": [
     //    
@@ -19,13 +19,6 @@ var TestConfig = {
       }
     },
     //    
-    {
-      "Name": "Castanets",
-      "TestID": "id2",
-      "Files": {
-        "A": "audio/castanets_ref.wav",
-        "B": "audio/castanets_2.wav",
-      }
-    },
+
   ]
 }
