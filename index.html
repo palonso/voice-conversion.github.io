@@ -33,7 +33,9 @@
             // Uncomment one of the following lines to choose the desired test class
 
             //testHandle = new MushraTest(TestConfig);    // <-- MUSHRA test class
-            testHandle = new AbxTest(TestConfig);     // <-- ABX test class
+            //testHandle = new AbxTest(TestConfig);     // <-- ABX test class
+
+            testHandle = new AorB(TestConfig);     // <-- AorB test class
 
             $('#Footer').prepend(testHandle.browserFeatureString() + '<br/>');
         };
@@ -64,14 +66,26 @@
         <!-- edit here if you want to change the welcome message  and instructions -->
 
         <div style="text-align:left">
-            Thanks for your interest in participating in the listening test. The overall test will roughly take 15 minutes. Please take the time and carefully rate every item.
+            Thanks for your interest in participating in the listening test. The overall test will roughly take a few minutes. Please take the time and carefully rate every item.
             <br />
             <br />
+            Information:
+            <br />
+            This is a test to asses the results of a Voice Conversion system developed for my master thesis. The goal of the test is to assess the conversion results in terms of subjective quality in different scenarios (Same Language, Cross-Language, Same Geneder, Cross-Gender... ). To do this, each test (of a total of 10) provides:
+            <ul>
+            <li> <b>Input Voice: </b> The voice signal to convert
+            <li> <b>Target: </b> A generic sentence pronunced by the target speaker. The goal is to achieve this voice.
+            <li> <b>A and B: </b> These are 2 synthesis with different paramenter configuration.  
+            </ul> 
+            
+            The tester has to choose which version sounds more naural and inteligible.
+
             Instructions:
             <ul>
                 <li>Most important: use high quality studio headphones and a good soundcard!</li>
-                <li>Listen through all test files and test sets before you do any ratings to get used to the material.</li>
-                <li>Rate the quality of the test items only compared to the reference on top.</li>
+                <li>First listen to reference voice to get familiar with the target voice. This reference will be present in every test and does not have to say the same as the test items. </li>
+                <li>Then, listen carefully to the candidates and choose the one that sounds more natural and closer to the reference.</li>
+                <li>The input voice is also avaible</li>
                 <li>Try to rate the overall impression of a test item and don't concentrate on single aspects. </li>
             </ul>
         </div>

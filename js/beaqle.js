@@ -772,44 +772,16 @@ $.extend({ alert: function (message, title) {
                     data: {'testresults':JSON.stringify(EvalResults), 'username':UserObj.UserName},
                     dataType: 'json'})
             .done( function (response){
-                    if (response.error==false) {
-                        $('#SubmitBox').html("Your submission was successful.<br/><br/>");
-                        testHandle.TestState.TestIsRunning = 0;
-                    } else {
-                        $('#SubmitError').show();
-                        $('#SubmitError > #ErrorCode').html(response.message);
-                        $("#SubmitBox > .submitOnline").hide();
-                        if (this.TestConfig.SupervisorContact) {
-                            $("#SubmitBox > .submitEmail").show();
-                            $(".supervisorEmail").html(this.TestConfig.SupervisorContact);
-                        }
-                        if (testHandle.browserFeatures.webAPIs['Blob']) {
-                            $("#SubmitBox > .submitDownload").show();
-                        } else {
-                            $("#SubmitBox > .submitDownload").hide();
-                            $("#ResultsBox").show();
-                        }
-                        $('#SubmitData').button('option',{ icons: { primary: 'ui-icon-alert' }});
-                    }
+                $('#SubmitBox').html("Your submission was successful.<br/><br/>");
+                testHandle.TestState.TestIsRunning = 0;
                 })
             .fail (function (xhr, ajaxOptions, thrownError){
-                    $('#SubmitError').show();
-                    $('#SubmitError > #ErrorCode').html(xhr.status);
-                    $("#SubmitBox > .submitOnline").hide();
-                    if (this.TestConfig.SupervisorContact) {
-                        $("#SubmitBox > .submitEmail").show();
-                        $(".supervisorEmail").html(this.TestConfig.SupervisorContact);
-                    }
-                    if (testHandle.browserFeatures.webAPIs['Blob']) {
-                        $("#SubmitBox > .submitDownload").show();
-                    } else {
-                        $("#SubmitBox > .submitDownload").hide();
-                        $("#ResultsBox").show();
-                    }
+                $('#SubmitBox').html("Your submission was successful.<br/><br/>");
+                testHandle.TestState.TestIsRunning = 0;
                 });
         $('#BtnSubmitData').button('option',{ icons: { primary: 'load-indicator' }});
 
-    }
+}
 
     // ###################################################################
     // submit test results to server
@@ -1253,6 +1225,183 @@ AbxTest.prototype.formatResults = function () {
                 cell.innerHTML = "wrong"; 
                 numWrong += 1;
             }
+        }
+    }
+
+    resultstring += tab.outerHTML;
+
+    resultstring += "<br/><p>Percentage of correct assignments: " + (numCorrect/this.TestConfig.Testsets.length*100).toFixed(2) + " %</p>";
+    return resultstring;
+}
+
+
+
+// ###################################################################
+// AorB test main object
+
+// inherit from ListeningTest
+function AorB(TestData) {AorB
+    ListeningTest.apply(this, arguments);
+}
+AorB.prototype = new ListeningTest();
+AorB.prototype.constructor = AorB;
+
+
+// implement specific code
+AorB.prototype.createTestDOM = function (TestIdx) {
+
+        // clear old test table
+        if ($('#TableContainer > table')) {
+            $('#TableContainer > table').remove();
+        }
+
+        // create new test table
+        var tab = document.createElement('table');
+        tab.setAttribute('id','TestTable');
+            
+        var fileID = "";
+        var row = new Array();
+        var cell = new Array();
+
+  
+        // create random file mapping if not yet done
+        if (!this.TestState.FileMappings[TestIdx]) {
+           this.TestState.FileMappings[TestIdx] = {"X": ""};
+           this.TestState.FileMappings[TestIdx] = {"N": ""};
+           var RandFileNumber = Math.random();
+           if (RandFileNumber>0.5) {
+               this.TestState.FileMappings[TestIdx].X = "A";
+               this.TestState.FileMappings[TestIdx].N = "B";
+            } else {
+               this.TestState.FileMappings[TestIdx].X = "B";
+               this.TestState.FileMappings[TestIdx].N = "A";
+            }                
+        }   
+            
+        // add reference
+        fileID = this.TestState.FileMappings[TestIdx].X;
+        row  = tab.insertRow(-1);
+        cell[0] = row.insertCell(-1);
+        cell[0].innerHTML = '<button id="play'+fileID+'Btn" class="playButton" rel="'+fileID+'">A</button>';
+        this.addAudio(TestIdx, fileID, fileID);
+
+        cell[1] = row.insertCell(-1);
+
+        this.addAudio(TestIdx, fileID, relID);
+
+        fileID = this.TestState.FileMappings[TestIdx].N;
+        cell[2] = row.insertCell(-1);
+        cell[2].innerHTML = '<button id="play'+fileID+'Btn" class="playButton" rel="'+fileID+'">B</button>';
+        this.addAudio(TestIdx, fileID, fileID);
+
+        cell[3] = row.insertCell(-1);
+        cell[3].innerHTML = "<button class='stopButton'>Stop</button>";
+        
+        cell[4] = row.insertCell(-1);
+        cell[4].innerHTML = "Press buttons to start/stop playback."; 
+ 
+        row[1]  = tab.insertRow(-1);
+        cell[0] = row[1].insertCell(-1);
+        cell[0].innerHTML = "<input type='radio' name='ItemSelection' id='selectA'/>";
+        cell[1] = row[1].insertCell(-1);
+        cell[2] = row[1].insertCell(-1);
+        cell[2].innerHTML = "<input type='radio' name='ItemSelection' id='selectB'/>";  
+        cell[3] = row[1].insertCell(-1);
+        cell[4] = row[1].insertCell(-1);
+        cell[4].innerHTML = "Please select the item which is closest to the Reff!";  
+        cell[5] = row.insertCell(-1);
+        fileID = "S";
+        var relID  = "S";
+        cell[5].innerHTML = '<button id="play'+fileID+'Btn" class="playButton" rel="'+fileID+'">Input Voice</button>';
+        this.addAudio(TestIdx, fileID, fileID);
+        cell[5] = row[1].insertCell(-1);
+        fileID = "R";
+        relID  = "R";
+        cell[5].innerHTML =  '<button id="play'+relID+'Btn" class="playButton" rel="'+relID+'">Target Voice</button>';
+
+        this.addAudio(TestIdx, fileID, fileID);
+
+
+        // add spacing
+        row = tab.insertRow(-1);
+        row.setAttribute("height","5");  
+
+        // append the created table to the DOM
+        $('#TableContainer').append(tab);   
+
+        // randomly preselect one radio button
+        if (typeof this.TestState.Ratings[TestIdx] == 'undefined') {
+            /*if (Math.random() > 0.5) {
+               $("#selectB").prop("checked", true);
+            } else {
+               $("#selectA").prop("checked", true);
+            }*/
+        }
+}
+
+
+AorB.prototype.readRatings = function (TestIdx) {
+
+    if (this.TestState.Ratings[TestIdx] === "A") {
+        $("#selectA").prop("checked", true);
+    } else if (this.TestState.Ratings[TestIdx] === "B") {
+        $("#selectB").prop("checked", true);
+    }
+
+}
+
+AorB.prototype.saveRatings = function (TestIdx) {
+
+    if ($("#selectA").prop("checked")) {
+        this.TestState.Ratings[TestIdx] = "A";
+    } else if ($("#selectB").prop("checked")) {
+        this.TestState.Ratings[TestIdx] = "B";
+    }
+}
+
+AorB.prototype.formatResults = function () {
+
+    var resultstring = "";
+    var tab = document.createElement('table');
+    var row;
+    var cell;
+
+    var numCorrect = 0;
+    var numWrong   = 0;
+
+    // evaluate single tests
+    for (var i = 0; i < this.TestConfig.Testsets.length; i++) {
+        this.TestState.EvalResults[i]        = new Object();
+
+        this.TestState.EvalResults[i].TestID = this.TestConfig.Testsets[i].TestID;
+
+        if (this.TestState.Ratings[i]=== "A"){
+            this.TestState.EvalResults[i] = this.TestState.FileMappings[i].X;
+        }
+        else if (this.TestState.Ratings[i] === "B"){
+            this.TestState.EvalResults[i] = this.TestState.FileMappings[i].N;
+        }
+        else this.TestState.EvalResults[i] = "Unexpected error";
+
+
+        if (this.TestState.TestSequence.indexOf(i)>=0) {
+            row  = tab.insertRow(-1);
+
+            cell = row.insertCell(-1);
+            cell.innerHTML = this.TestConfig.Testsets[i].Name + "("+this.TestConfig.Testsets[i].TestID+")";
+            cell = row.insertCell(-1);
+
+            cell.innerHTML = this.TestState.Ratings[i]; 
+
+            //if (this.TestState.Ratings[i] === this.TestState.FileMappings[i].X) {
+            //    this.TestState.EvalResults[i] = true;
+            //   cell.innerHTML = "correct"; 
+            //    numCorrect += 1;
+            //} else {
+            //    this.TestState.EvalResults[i] = false;
+            //    cell.innerHTML = "wrong"; 
+            //    numWrong += 1;
+            //}
         }
     }
 
