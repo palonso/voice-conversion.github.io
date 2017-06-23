@@ -66,31 +66,52 @@
         <!-- edit here if you want to change the welcome message  and instructions -->
 
         <div style="text-align:left">
-            Thanks for your interest in participating in the listening test. The overall test will roughly take a few minutes. Please take the time and carefully rate every item.
             <br />
             <br />
-            Information:
+            <b>English:</b>
+            <br /> 
+            Thanks for your interest in participating in this listening test! The overall test is composed by 12 questions and will roughly take 5 minutes. Please take the time and carefully rate every item. It is preferible to make the test with headphones or another high quality system.
             <br />
-            This is a test to asses the results of a Voice Conversion system developed for my master thesis. The goal of the test is to assess the conversion results in terms of subjective quality in different scenarios (Same Language, Cross-Language, Same Geneder, Cross-Gender... ). To do this, each test (of a total of 10) provides:
-            <ul>
-            <li> <b>Input Voice: </b> The voice signal to convert
-            <li> <b>Target: </b> A generic sentence pronunced by the target speaker. The goal is to achieve this voice.
-            <li> <b>A and B: </b> These are 2 synthesis with different paramenter configuration.  
-            </ul> 
-            
-            The tester has to choose which version sounds more naural and inteligible.
-
+            This is a test to assess the Voice Conversion system developed for my master thesis. A Voice conversion system works by transforming a signal performed by the <b>Input Voice</b> in order to make it sound as said by the <b>Target Voice</b>. This test proposes two alternative conversions, <b> A </b> and <b>B</b>, performing different parameters. <b>The goal of the test is to choose the best conversion in terms of inteligibility, natural sounding and proximity to the Target Voice. Possible answers are A, B or No preference</b>.
+            <br />        
+            <br />
             Instructions:
             <ul>
-                <li>Most important: use high quality studio headphones and a good soundcard!</li>
-                <li>First listen to reference voice to get familiar with the target voice. This reference will be present in every test and does not have to say the same as the test items. </li>
-                <li>Then, listen carefully to the candidates and choose the one that sounds more natural and closer to the reference.</li>
-                <li>The input voice is also avaible</li>
-                <li>Try to rate the overall impression of a test item and don't concentrate on single aspects. </li>
+
+                <li>Listen to the <b>Target Voice</b> to get familiar with it. This reference will be present in every test pronuncing the same sentence. </li>
+                <li> Listen to the <b>Input Voice </b> to get familiar with the original sentece. </li>
+                <li>Listen carefully to the conversions <b> A </b> and <b> B </b> and choose the one that sounds more natural and closer to the <b>Target Voice</b>. Select <b>No preference</b> if there isn't any noticiable difference.</li>
+                <li>Questions 11 and 12 are slighly different. There isn't any target or input reference and the goal is just to choose if you prefer the male or the female voice according to the exposed criteria. </li>
             </ul>
+            <b>The tests don't provide a default answer. Please make sure to choose something in every question. </b>
+            <br />
+            <br />
+
+
+            <b>Español:</b>
+            <br/>
+            Gracias por participar en esta prueba de audición! La prueba está compuesta por 12 preguntas y durará aproximadamente unos 5 minutos. Tomate el tiempo que necesites para elegir cada respuesta. Es preferible hacer la prueba con auriculares u otro sistema de alta calidad.
+             <br/>
+             En esta  prueba se evalúa el sistema de conversión de voz desarrollado para mi proyecto de fin de master. Un sistema de conversión de voz funciona transformando una señal producida por la <b>Input Voice</b> para intentar que suene como dicha por la <b>Target Voice</b>. Esta prueba propone dos conversiones alternativas, <b>A</b> y <b>B</b>, realizadas con parámetros distintos. <b>El objetivo de la prueba es elegir la mejor conversión en términos de inteligibilidad, sonido natural y proximidad a la Target Voice. Las respuestas posibles son A, B o No Preference</b>.
+            <br />
+            <br />
+            Instrucciones:
+            <ul>
+                 <li> Escucha la <b> Target Voice </b> para familiarizarte con ella. Esta referencia estará presente en cada prueba pronunciando la misma frase. </Li>
+                 <li> Escucha la <b> Input Voice </b> para familiarizarte con la frase a transformar. </li>
+                 <li> Escucha con atención las conversiones <b> A </b> y <b> B </b> y selecciona la que sea más natural y cercana a la <b>Target Voice</b>. Selecciona <b>No preference</b> en caso de no apreciar ninguna diferencia. 
+                 <li> Las preguntas 11 y 12 son diferentes. No hay ningun referencia de entrada y el objetivo es simplemente elegir si se prefiere la voz masculina o femenina de acuerdo con los criterios expuestos. </li>
+             </ul>
+
         </div>
+        <b>El test no ofrece respuesta por defecto. Asegurate de seleccionar algo en caada pregunta.</b>
+
         <br />
         <br />
+
+
+
+        
                         
         <!-- this button starts the first test -->
         <button id="BtnStartTest" onclick="testHandle.startTests();">Start!</button>	

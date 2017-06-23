@@ -1286,6 +1286,7 @@ AorB.prototype.createTestDOM = function (TestIdx) {
         this.addAudio(TestIdx, fileID, fileID);
 
         cell[1] = row.insertCell(-1);
+        cell[1].innerHTML = "No\n preference";
 
         this.addAudio(TestIdx, fileID, relID);
 
@@ -1298,18 +1299,27 @@ AorB.prototype.createTestDOM = function (TestIdx) {
         cell[3].innerHTML = "<button class='stopButton'>Stop</button>";
         
         cell[4] = row.insertCell(-1);
-        cell[4].innerHTML = "Press buttons to start/stop playback."; 
+        cell[4].innerHTML = "We want to transform this sentence -->"; 
  
         row[1]  = tab.insertRow(-1);
         cell[0] = row[1].insertCell(-1);
         cell[0].innerHTML = "<input type='radio' name='ItemSelection' id='selectA'/>";
         cell[1] = row[1].insertCell(-1);
+        cell[1].innerHTML = "<input type='radio' name='ItemSelection' id='selectN'/>";
         cell[2] = row[1].insertCell(-1);
         cell[2].innerHTML = "<input type='radio' name='ItemSelection' id='selectB'/>";  
         cell[3] = row[1].insertCell(-1);
         cell[4] = row[1].insertCell(-1);
-        cell[4].innerHTML = "Please select the item which is closest to the Reff!";  
+        cell[4].innerHTML = "As if it was singed by this voice -->";  
         cell[5] = row.insertCell(-1);
+
+        row[2]  = tab.insertRow(-1);
+        cell[0] = row[2].insertCell(-1);
+        cell[1] = row[2].insertCell(-1); 
+        cell[2] = row[2].insertCell(-1);
+        cell[3] = row[2].insertCell(-1);
+        cell[4] = row[2].insertCell(-1);
+        cell[4].innerHTML = "Choose between A, B or No preference."
         fileID = "S";
         var relID  = "S";
         cell[5].innerHTML = '<button id="play'+fileID+'Btn" class="playButton" rel="'+fileID+'">Input Voice</button>';
@@ -1346,6 +1356,8 @@ AorB.prototype.readRatings = function (TestIdx) {
         $("#selectA").prop("checked", true);
     } else if (this.TestState.Ratings[TestIdx] === "B") {
         $("#selectB").prop("checked", true);
+    } else if (this.TestState.Ratings[TestIdx] === "N") {
+        $("#selectN").prop("checked", true);
     }
 
 }
@@ -1356,6 +1368,8 @@ AorB.prototype.saveRatings = function (TestIdx) {
         this.TestState.Ratings[TestIdx] = "A";
     } else if ($("#selectB").prop("checked")) {
         this.TestState.Ratings[TestIdx] = "B";
+    } else if ($("#selectN").prop("checked")) {
+        this.TestState.Ratings[TestIdx] = "N";
     }
 }
 
@@ -1381,7 +1395,10 @@ AorB.prototype.formatResults = function () {
         else if (this.TestState.Ratings[i] === "B"){
             this.TestState.EvalResults[i] = this.TestState.FileMappings[i].N;
         }
-        else this.TestState.EvalResults[i] = "Unexpected error";
+        else if (this.TestState.Ratings[i] === "N"){
+            this.TestState.EvalResults[i] = "N";
+        }
+        else this.TestState.EvalResults[i] = "E";
 
 
         if (this.TestState.TestSequence.indexOf(i)>=0) {

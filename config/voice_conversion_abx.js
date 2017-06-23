@@ -57,7 +57,7 @@ var TestConfig = {
     },
     //    
     {
-      "Name": "Randy, sometimes I like to sing in Spanish!",
+      "Name": "Sometimes Randy likes to sing in Spanish!",
       "TestID": "db_MMC",
       "Files": {
         "A": "./audio/randy_p003__ppg_worldv2_sac_fmllr__no_smbr_AR__1x1_cond__timit/xevi/xevi_01_world.mp3",
@@ -104,7 +104,7 @@ var TestConfig = {
     },
     //    
     {
-      "Name": "Frida",
+      "Name": "Frida also likes spanish songs!",
       "TestID": "db_FMC",
       "Files": {
         "A": "./audio/fpop2_p001+p002__ppg_worldv2_sac_fmllr__no_smbr_AR__wn_cond__timit/xevi/xevi_01_world.mp3",
@@ -124,6 +124,33 @@ var TestConfig = {
         "S": "./audio/sources/ultimo-chorus_a_01.mp3", 
       }
     },
+
+
+        // // // Gender Conversion
+
+
+    {
+      "Name": "Randy vs. Frida. Who sings it better?",
+      "TestID": "db_FMC",
+      "Files": {
+        "A": "./audio/randy_p003__ppg_worldv2_sac_fmllr__no_smbr_AR__1x1_cond__timit/a_train/a_train_01_world.mp3",
+        "B": "./audio/fpop2_p001+p002__ppg_worldv2_sac_fmllr__no_smbr_AR__wn_cond__timit/a_train/a_train_01_world.mp3",
+        "R": "./audio/examples/silence.mp3",
+        "S": "./audio/examples/silence.mp3",
+      }
+    },
+    // 
+    {
+      "Name": "Randy vs. Frida. Who sings it better?",
+      "TestID": "gender_female",
+      "Files": {
+        "A": "./audio/randy_p003__ppg_worldv2_sac_fmllr__no_smbr_AR__1x1_cond__timit/locked/locked48_01_world.mp3",
+        "B": "./audio/fpop2_p001+p002__ppg_worldv2_sac_fmllr__no_smbr_AR__wn_cond__timit/locked/locked48_01_world.mp3",
+        "R": "./audio/examples/silence.mp3",
+        "S": "./audio/examples/silence.mp3", 
+      }
+    },
+
 
   ]
 }
